@@ -1,5 +1,8 @@
 using System;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using System.Text;
+using System.Text.Encodings;
 
 namespace Nvidia.Nvml
 {
@@ -21,6 +24,16 @@ namespace Nvidia.Nvml
         internal static extern NvmlReturn NvmlShutdown();
         [DllImport(NvmlSharedLibrary, EntryPoint = "nvmlSystemGetCudaDriverVersion")]
         internal static extern NvmlReturn NvmlSystemGetCudaDriverVersion(out int cudaDriverVersion);
+        [DllImport(NvmlSharedLibrary, EntryPoint = "nvmlSystemGetCudaDriverVersion_v2")]
+        internal static extern NvmlReturn NvmlSystemGetCudaDriverVersionV2(out int cudaDriverVersion);
+        [DllImport(NvmlSharedLibrary, CharSet = CharSet.Ansi, EntryPoint = "nvmlSystemGetDriverVersion")]
+        internal static extern NvmlReturn NvmlSystemGetDriverVersion([Out, MarshalAs(UnmanagedType.LPArray)] byte[] version, uint length);
+        [DllImport(NvmlSharedLibrary, CharSet = CharSet.Ansi, EntryPoint = "nvmlSystemGetNVMLVersion")]
+        internal static extern NvmlReturn NvmlSystemGetNVMLVersion([Out, MarshalAs(UnmanagedType.LPArray)] byte[] version, uint length);
+        [DllImport(NvmlSharedLibrary, CharSet = CharSet.Ansi, EntryPoint = "nvmlSystemGetProcessName")]
+        internal static extern NvmlReturn NvmlSystemGetProcessName(uint pid, [Out, MarshalAs(UnmanagedType.LPArray)] byte[] name, uint length);
+        [DllImport(NvmlSharedLibrary, CharSet = CharSet.Ansi, EntryPoint = "nvmlDeviceGetComputeRunningProcesses")]
+        internal static extern NvmlReturn NvmlDeviceGetComputeRunningProcesses(IntPtr device, out uint infoCount, [Out, MarshalAs(UnmanagedType.LPArray)] NvmlProcessInfo[] infos);
     }
 
     public class NvGpu
@@ -33,11 +46,86 @@ namespace Nvidia.Nvml
             return version / 1000;
         }
 
+        public static (List<NvmlProcessInfo>, uint) NvmlDeviceGetComputeRunningProcesses(IntPtr device)
+        {
+            NvmlReturn res;
+            int size = Marshal.SizeOf<NvmlProcessInfo>();
+            // IntPtr buffer = Marshal.AllocHGlobal(size * 5);
+            uint count = 0;
+
+            res = Api.NvmlDeviceGetComputeRunningProcesses(device, out count, null);
+            if (count <= 0)
+            {
+                return (new List<NvmlProcessInfo>(), count);
+            }
+
+            NvmlProcessInfo[] buffer = new NvmlProcessInfo[count];
+            res = Api.NvmlDeviceGetComputeRunningProcesses(device, out count, buffer);
+            if (NvmlReturn.NVML_SUCCESS != res)
+            {
+                throw new SystemException(res.ToString());
+            }
+
+            return (new List<NvmlProcessInfo>(buffer), count);
+        }
+
+        public static string NvmlSystemGetProcessName(uint pid, uint length)
+        {
+            NvmlReturn res;
+            byte[] name = new byte[length];
+            res = Api.NvmlSystemGetProcessName(pid, name, length);
+            if (NvmlReturn.NVML_SUCCESS != res)
+            {
+                throw new SystemException(res.ToString());
+            }
+
+            return Encoding.Default.GetString(name).Replace("\0", "");
+        }
+
+        public static string nvmlSystemGetNVMLVersion(uint length)
+        {
+            NvmlReturn res;
+            byte[] version = new byte[length];
+            res = Api.NvmlSystemGetNVMLVersion(version, length);
+            if (NvmlReturn.NVML_SUCCESS != res)
+            {
+                throw new SystemException(res.ToString());
+            }
+
+            return Encoding.Default.GetString(version).Replace("\0", "");
+        }
+
+        public static string nvmlSystemGetDriverVersion(uint length)
+        {
+            NvmlReturn res;
+            byte[] version = new byte[length];
+            res = Api.NvmlSystemGetDriverVersion(version, length);
+            if (NvmlReturn.NVML_SUCCESS != res)
+            {
+                throw new SystemException(res.ToString());
+            }
+
+            return Encoding.Default.GetString(version).Replace("\0", "");
+        }
+
         public static int NvmlSystemGetCudaDriverVersion()
         {
             int driverVersion;
             NvmlReturn res;
             res = Api.NvmlSystemGetCudaDriverVersion(out driverVersion);
+            if (NvmlReturn.NVML_SUCCESS != res)
+            {
+                throw new SystemException(res.ToString());
+            }
+
+            return driverVersion;
+        }
+
+        public static int NvmlSystemGetCudaDriverVersionV2()
+        {
+            int driverVersion;
+            NvmlReturn res;
+            res = Api.NvmlSystemGetCudaDriverVersionV2(out driverVersion);
             if (NvmlReturn.NVML_SUCCESS != res)
             {
                 throw new SystemException(res.ToString());
