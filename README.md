@@ -1,2 +1,4 @@
-# nvml-csharp
-Its a Nvidia monitoring library wrapper written in c#.
+
+# ![](thumbs/nvml-csharp.png)
+
+A nvidia monitoring library wrapper written in c#.
