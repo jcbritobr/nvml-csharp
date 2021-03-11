@@ -75,7 +75,11 @@ namespace Nvidia.Nvml
         [DllImport(NVML_SHARED_LIBRARY_STRING, CharSet = CharSet.Ansi, EntryPoint = "nvmlDeviceGetCurrentClocksThrottleReasons")]
         internal static extern NvmlReturn NvmlDeviceGetCurrentClocksThrottleReasons(IntPtr device, out ulong clocksThrottleReasons);
         [DllImport(NVML_SHARED_LIBRARY_STRING, CharSet = CharSet.Ansi, EntryPoint = "nvmlDeviceGetDecoderUtilization")]
-        internal static extern NvmlReturn NvmlDeviceGetDecoderUtilization ( IntPtr device, uint utilization, out uint samplingPeriodUs);
+        internal static extern NvmlReturn NvmlDeviceGetDecoderUtilization(IntPtr device, uint utilization, out uint samplingPeriodUs);
+        [DllImport(NVML_SHARED_LIBRARY_STRING, CharSet = CharSet.Ansi, EntryPoint = "nvmlDeviceGetDefaultApplicationsClock")]
+        internal static extern NvmlReturn NvmlDeviceGetDefaultApplicationsClock(IntPtr device, NvmlClockType clockType, out uint clockMHz);
+        [DllImport(NVML_SHARED_LIBRARY_STRING, CharSet = CharSet.Ansi, EntryPoint = "nvmlDeviceGetDetailedEccErrors")]
+        internal static extern NvmlReturn NvmlDeviceGetDetailedEccErrors(IntPtr device, NvmlMemoryErrorType errorType, NvmlEccCounterType counterType, out NvmlEccErrorCounts eccCounts);
     }
 
     public class NvGpu
