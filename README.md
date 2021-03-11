@@ -42,9 +42,9 @@ catch (Exception e)
 * The wrapper is in working status. Below we have a list of migrated modules
 - [x] Ititialization and Cleanup
 - [x] System Queries
-- [] Device Queries
-- [] Unit Queries
-- [] Unit Commands
-- [] Device Commands
-- [] Event Handling Methods
-- [] Error Reporting
+- [ ] Device Queries
+- [ ] Unit Queries
+- [ ] Unit Commands
+- [ ] Device Commands
+- [ ] Event Handling Methods
+- [ ] Error Reporting
