@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\nvmllib\nvmllib.csproj" />
+    <ProjectReference Include="..\NvmlLib\NvmlLib.csproj" />
   </ItemGroup>
 
 </Project>
