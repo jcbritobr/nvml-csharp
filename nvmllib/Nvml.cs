@@ -34,6 +34,8 @@ namespace Nvidia.Nvml
         internal static extern NvmlReturn NvmlSystemGetProcessName(uint pid, [Out, MarshalAs(UnmanagedType.LPArray)] byte[] name, uint length);
         [DllImport(NvmlSharedLibrary, CharSet = CharSet.Ansi, EntryPoint = "nvmlDeviceGetComputeRunningProcesses")]
         internal static extern NvmlReturn NvmlDeviceGetComputeRunningProcesses(IntPtr device, out uint infoCount, [Out, MarshalAs(UnmanagedType.LPArray)] NvmlProcessInfo[] infos);
+        [DllImport(NvmlSharedLibrary, CharSet = CharSet.Ansi, EntryPoint = "nvmlDeviceGetAPIRestriction")]
+        internal static extern NvmlReturn NvmlDeviceGetAPIRestriction(IntPtr device, NvmlRestrictedAPI apiType, out NvmlEnableState isRestricted);
     }
 
     public class NvGpu
@@ -44,6 +46,19 @@ namespace Nvidia.Nvml
         public static int CudaDriverVersionMajor(int version)
         {
             return version / 1000;
+        }
+
+        public static NvmlEnableState NvmlDeviceGetAPIRestriction(IntPtr device, NvmlRestrictedAPI apiType)
+        {
+            NvmlEnableState state;
+            NvmlReturn res;
+            res = Api.NvmlDeviceGetAPIRestriction(device, apiType, out state);
+            if (NvmlReturn.NVML_SUCCESS != res)
+            {
+                throw new SystemException(res.ToString());
+            }
+
+            return state;
         }
 
         public static (List<NvmlProcessInfo>, uint) NvmlDeviceGetComputeRunningProcesses(IntPtr device)

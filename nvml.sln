@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nvmllib", "nvmllib\nvmllib.csproj", "{D7B27AE3-D34B-4843-803D-DFD1293A1955}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NvmlLib", "NvmlLib\NvmlLib.csproj", "{D7B27AE3-D34B-4843-803D-DFD1293A1955}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nvmltests", "nvmltests\nvmltests.csproj", "{141AA744-EDAC-4D82-A1D3-6A82142BFF93}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NvmlTests", "Nvmltests\NvmlTests.Tests.csproj", "{141AA744-EDAC-4D82-A1D3-6A82142BFF93}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

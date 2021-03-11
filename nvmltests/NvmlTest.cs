@@ -12,7 +12,25 @@ namespace NvlmTests
         }
 
         [Test]
-        public void RetrieveProcessList()
+        public void ApiRestictionsTest()
+        {
+            try
+            {
+                NvGpu.NvmlInitV2();
+                var device = IntPtr.Zero;
+                device = NvGpu.NvmlDeviceGetHandleByIndex(0);
+                var state = NvGpu.NvmlDeviceGetAPIRestriction(device, NvmlRestrictedAPI.NVML_RESTRICTED_API_SET_APPLICATION_CLOCKS);
+
+                NvGpu.NvmlShutdown();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+        }
+
+        [Test]
+        public void RetrieveProcessListTest()
         {
             try
             {
@@ -29,7 +47,7 @@ namespace NvlmTests
         }
 
         [Test]
-        public void RetrieveProcessName()
+        public void RetrieveProcessNameTest()
         {
             try
             {
@@ -60,7 +78,7 @@ namespace NvlmTests
         }
 
         [Test]
-        public void RetrieveNvmlVersion()
+        public void RetrieveNvmlVersionTest()
         {
             try
             {
@@ -79,7 +97,7 @@ namespace NvlmTests
         }
 
         [Test]
-        public void RetrieveDriverVersion()
+        public void RetrieveDriverVersionTest()
         {
             try
             {
@@ -98,7 +116,7 @@ namespace NvlmTests
         }
 
         [Test]
-        public void RetriveCudaDriverVersion()
+        public void RetriveCudaDriverVersionTest()
         {
             try
             {
@@ -140,7 +158,7 @@ namespace NvlmTests
         }
 
         [Test]
-        public void RecoverDevice()
+        public void RecoverDeviceTest()
         {
             try
             {
@@ -160,7 +178,7 @@ namespace NvlmTests
         }
 
         [Test]
-        public void GetGpuTemperature()
+        public void GetGpuTemperatureTest()
         {
             try
             {
@@ -178,7 +196,6 @@ namespace NvlmTests
             {
                 Assert.Fail(e.ToString());
             }
-
         }
     }
 }
