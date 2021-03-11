@@ -12,6 +12,27 @@ namespace NvlmTests
         }
 
         [Test]
+        public void RetrieveDeviceBoardPartNumberTest()
+        {
+            try
+            {
+                NvGpu.NvmlInitV2();
+                var device = NvGpu.NvmlDeviceGetHandleByIndex(0);
+                var partnumber = NvGpu.NvmlDeviceGetBoardPartNumber(device, 20);
+
+                NvGpu.NvmlShutdown();
+            }
+            catch (Exception e)
+            {
+                if(e.Message.Equals("NVML_ERROR_NOT_SUPPORTED"))
+                {
+                    Assert.Pass("NVML_ERROR_NOT_SUPPORTED means vbios fields have not been filled");
+                }
+                Assert.Fail(e.ToString());
+            }
+        }
+
+        [Test]
         public void ApiRestictionsTest()
         {
             try
