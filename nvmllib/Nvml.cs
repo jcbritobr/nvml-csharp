@@ -80,6 +80,18 @@ namespace Nvidia.Nvml
         internal static extern NvmlReturn NvmlDeviceGetDefaultApplicationsClock(IntPtr device, NvmlClockType clockType, out uint clockMHz);
         [DllImport(NVML_SHARED_LIBRARY_STRING, CharSet = CharSet.Ansi, EntryPoint = "nvmlDeviceGetDetailedEccErrors")]
         internal static extern NvmlReturn NvmlDeviceGetDetailedEccErrors(IntPtr device, NvmlMemoryErrorType errorType, NvmlEccCounterType counterType, out NvmlEccErrorCounts eccCounts);
+        [DllImport(NVML_SHARED_LIBRARY_STRING, CharSet = CharSet.Ansi, EntryPoint = "nvmlDeviceGetDisplayActive")]
+        internal static extern NvmlReturn NvmlDeviceGetDisplayActive(IntPtr device, out NvmlEnableState isActive);
+        [DllImport(NVML_SHARED_LIBRARY_STRING, CharSet = CharSet.Ansi, EntryPoint = "nvmlDeviceGetDisplayMode")]
+        internal static extern NvmlReturn NvmlDeviceGetDisplayMode(IntPtr device, out NvmlEnableState display);
+        [DllImport(NVML_SHARED_LIBRARY_STRING, CharSet = CharSet.Ansi, EntryPoint = "nvmlDeviceGetDriverModel")]
+        internal static extern NvmlReturn NvmlDeviceGetDriverModel(IntPtr device, out NvmlDriverModel current, out NvmlDriverModel pending);
+        [DllImport(NVML_SHARED_LIBRARY_STRING, CharSet = CharSet.Ansi, EntryPoint = "nvmlDeviceGetEccMode")]
+        internal static extern NvmlReturn NvmlDeviceGetEccMode(IntPtr device, out NvmlEnableState current, out NvmlEnableState pending);
+        [DllImport(NVML_SHARED_LIBRARY_STRING, CharSet = CharSet.Ansi, EntryPoint = "nvmlDeviceGetEncoderCapacity")]
+        internal static extern NvmlReturn NvmlDeviceGetEncoderCapacity(IntPtr device, NvmlEncoderType encoderQueryType, out uint encoderCapacity);
+        [DllImport(NVML_SHARED_LIBRARY_STRING, CharSet = CharSet.Ansi, EntryPoint = "nvmlDeviceGetEncoderSessions")]
+        internal static extern NvmlReturn NvmlDeviceGetEncoderSessions(IntPtr device, out uint sessionCount, out NvmlEncoderSessionInfo sessionInfos);
     }
 
     public class NvGpu
