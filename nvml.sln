@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NvmlLib", "NvmlLib\NvmlLib.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NvmlTests", "NvmlTests\NvmlTests.Tests.csproj", "{141AA744-EDAC-4D82-A1D3-6A82142BFF93}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo", "Demo\Demo.csproj", "{09A1CFF1-2921-4596-98B8-79657B3F33CE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,5 +46,17 @@ Global
 		{141AA744-EDAC-4D82-A1D3-6A82142BFF93}.Release|x64.Build.0 = Release|Any CPU
 		{141AA744-EDAC-4D82-A1D3-6A82142BFF93}.Release|x86.ActiveCfg = Release|Any CPU
 		{141AA744-EDAC-4D82-A1D3-6A82142BFF93}.Release|x86.Build.0 = Release|Any CPU
+		{09A1CFF1-2921-4596-98B8-79657B3F33CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{09A1CFF1-2921-4596-98B8-79657B3F33CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{09A1CFF1-2921-4596-98B8-79657B3F33CE}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{09A1CFF1-2921-4596-98B8-79657B3F33CE}.Debug|x64.Build.0 = Debug|Any CPU
+		{09A1CFF1-2921-4596-98B8-79657B3F33CE}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{09A1CFF1-2921-4596-98B8-79657B3F33CE}.Debug|x86.Build.0 = Debug|Any CPU
+		{09A1CFF1-2921-4596-98B8-79657B3F33CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{09A1CFF1-2921-4596-98B8-79657B3F33CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{09A1CFF1-2921-4596-98B8-79657B3F33CE}.Release|x64.ActiveCfg = Release|Any CPU
+		{09A1CFF1-2921-4596-98B8-79657B3F33CE}.Release|x64.Build.0 = Release|Any CPU
+		{09A1CFF1-2921-4596-98B8-79657B3F33CE}.Release|x86.ActiveCfg = Release|Any CPU
+		{09A1CFF1-2921-4596-98B8-79657B3F33CE}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

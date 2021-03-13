@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using NUnit.Framework;
 using Nvidia.Nvml;
 
@@ -9,6 +10,112 @@ namespace NvlmTests
         [SetUp]
         public void Setup()
         {
+        }
+
+        [Test]
+        public void SetDeviceComputeMode()
+        {
+            try
+            {
+                NvGpu.NvmlInitV2();
+                IntPtr device = NvGpu.NvmlDeviceGetHandleByIndex(0);
+                var original = NvGpu.NvmlDeviceGetComputeMode(device);
+                NvGpu.NvmlDeviceSetComputeMode(device, NvmlComputeMode.NVML_COMPUTEMODE_PROHIBITED);
+                var current = NvGpu.NvmlDeviceGetComputeMode(device);
+                if (NvmlComputeMode.NVML_COMPUTEMODE_PROHIBITED != current)
+                {
+                    Assert.Fail("Must return NVML_COMPUTEMODE_PROHIBITED mode");
+                }
+
+                NvGpu.NvmlDeviceSetComputeMode(device, original);
+                current = NvGpu.NvmlDeviceGetComputeMode(device);
+                if (original != current)
+                {
+                    Assert.Fail("Must return original mode");
+                }
+
+                NvGpu.NvmlShutdown();
+            }
+            catch (Exception e)
+            {
+                if (e.Message.Equals("NVML_ERROR_NO_PERMISSION"))
+                {
+                    TestContext.Progress.WriteLine("SetDeviceComputeMode >> In order to this test pass, the test case must be running with admin permission");
+                } 
+                else if (e.Message.Equals("NVML_ERROR_NOT_SUPPORTED"))
+                {
+                    TestContext.Progress.WriteLine("SetDeviceComputeMode >> This mode isn't supported by this device");
+                    Assert.Pass();
+                }
+                Assert.Fail(e.ToString());
+            }
+        }
+
+        [Test]
+        public void RetrieveDeviceComputeMode()
+        {
+            try
+            {
+                NvGpu.NvmlInitV2();
+                IntPtr device = NvGpu.NvmlDeviceGetHandleByIndex(0);
+                var computeMode = NvGpu.NvmlDeviceGetComputeMode(device);
+                NvGpu.NvmlShutdown();
+            }
+            catch (Exception e)
+            {
+                Assert.Fail(e.ToString());
+            }
+        }
+
+        [Test]
+        public void RetrieveDeviceCount()
+        {
+            try
+            {
+                NvGpu.NvmlInitV2();
+                var count = NvGpu.NvmlDeviceGetCountV2();
+                NvGpu.NvmlShutdown();
+            }
+            catch (Exception e)
+            {
+                Assert.Fail(e.ToString());
+            }
+        }
+
+        [Test]
+        public void RetrieveDevicePciInfo()
+        {
+            try
+            {
+                NvGpu.NvmlInitV2();
+                var device = NvGpu.NvmlDeviceGetHandleByIndex(0);
+                var info = NvGpu.NvmlDeviceGetPciInfoV3(device);
+                byte[] busIdData = Array.ConvertAll(info.busId, (a) => (byte)a);
+                byte[] busIdLegacyData = Array.ConvertAll(info.busIdLegacy, (a) => (byte)a);
+                string busId = Encoding.Default.GetString(busIdData);
+                string busIdLegacy = Encoding.Default.GetString(busIdLegacyData);
+                NvGpu.NvmlShutdown();
+            }
+            catch (Exception e)
+            {
+                Assert.Fail(e.ToString());
+            }
+        }
+
+        [Test]
+        public void RetrieveDeviceName()
+        {
+            try
+            {
+                NvGpu.NvmlInitV2();
+                var device = NvGpu.NvmlDeviceGetHandleByIndex(0);
+                string name = NvGpu.NvmlDeviceGetName(device);
+                NvGpu.NvmlShutdown();
+            }
+            catch (Exception e)
+            {
+                Assert.Fail(e.ToString());
+            }
         }
 
         [Test]
@@ -24,7 +131,7 @@ namespace NvlmTests
             }
             catch (Exception e)
             {
-                if(e.Message.Equals("NVML_ERROR_NOT_SUPPORTED"))
+                if (e.Message.Equals("NVML_ERROR_NOT_SUPPORTED"))
                 {
                     Assert.Pass("NVML_ERROR_NOT_SUPPORTED means vbios fields have not been filled");
                 }
@@ -78,12 +185,12 @@ namespace NvlmTests
                 var (list, count) = NvGpu.NvmlDeviceGetComputeRunningProcesses(device);
                 if (count > 0)
                 {
-                    TestContext.Progress.WriteLine(">> Testing NvmlSystemGetProcessName as we have processes in gpu");
+                    TestContext.Progress.WriteLine("RetrieveProcessNameTest >> Testing NvmlSystemGetProcessName as we have processes in gpu");
                     string processName = NvGpu.NvmlSystemGetProcessName(list[0].Pid, 30);
                 }
                 else
                 {
-                    TestContext.Progress.WriteLine(">> Testing NvmlSystemGetProcessName with inexistent pid 0");
+                    TestContext.Progress.WriteLine("RetrieveProcessNameTest >> Testing NvmlSystemGetProcessName with inexistent pid 0");
                     string processName = NvGpu.NvmlSystemGetProcessName(0, 30);
                 }
                 NvGpu.NvmlShutdown();

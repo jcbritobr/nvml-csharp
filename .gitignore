@@ -1,5 +1,7 @@
 /.vscode
-/nvmllib/bin
-/nvmllib/obj
-/nvmltests/bin
-/nvmltests/obj
+/NvmlLib/bin
+/NvmlLib/obj
+/NvmlTests/bin
+/NvmlTests/obj
+/Demo/bin
+/Demo/obj

@@ -61,11 +61,11 @@ namespace Nvidia.Nvml
         [DllImport(NVML_SHARED_LIBRARY_STRING, CharSet = CharSet.Ansi, EntryPoint = "nvmlDeviceGetClockInfo")]
         internal static extern NvmlReturn nvmlDeviceGetClockInfo(IntPtr device, NvmlClockType type, out uint clock);
         [DllImport(NVML_SHARED_LIBRARY_STRING, CharSet = CharSet.Ansi, EntryPoint = "nvmlDeviceGetComputeMode")]
-        internal static extern NvmlReturn NvmlDeviceGetComputeMode(IntPtr device, NvmlComputeMode mode);
+        internal static extern NvmlReturn nvmlDeviceGetComputeMode(IntPtr device, out NvmlComputeMode mode);
         [DllImport(NVML_SHARED_LIBRARY_STRING, CharSet = CharSet.Ansi, EntryPoint = "nvmlDeviceGetComputeRunningProcesses")]
         internal static extern NvmlReturn NvmlDeviceGetComputeRunningProcesses(IntPtr device, out uint infoCount, out NvmlProcessInfo infos);
         [DllImport(NVML_SHARED_LIBRARY_STRING, CharSet = CharSet.Ansi, EntryPoint = "nvmlDeviceGetCount_v2")]
-        internal static extern NvmlReturn nvmlDeviceGetCount_v2(out uint deviceCount);
+        internal static extern NvmlReturn NvmlDeviceGetCount_v2(out uint deviceCount);
         [DllImport(NVML_SHARED_LIBRARY_STRING, CharSet = CharSet.Ansi, EntryPoint = "nvmlDeviceGetCudaComputeCapability")]
         internal static extern NvmlReturn NvmlDeviceGetCudaComputeCapability(IntPtr device, out int major, out int minor);
         [DllImport(NVML_SHARED_LIBRARY_STRING, CharSet = CharSet.Ansi, EntryPoint = "nvmlDeviceGetCurrPcieLinkGeneration")]
@@ -92,6 +92,45 @@ namespace Nvidia.Nvml
         internal static extern NvmlReturn NvmlDeviceGetEncoderCapacity(IntPtr device, NvmlEncoderType encoderQueryType, out uint encoderCapacity);
         [DllImport(NVML_SHARED_LIBRARY_STRING, CharSet = CharSet.Ansi, EntryPoint = "nvmlDeviceGetEncoderSessions")]
         internal static extern NvmlReturn NvmlDeviceGetEncoderSessions(IntPtr device, out uint sessionCount, out NvmlEncoderSessionInfo sessionInfos);
+        [DllImport(NVML_SHARED_LIBRARY_STRING, CharSet = CharSet.Ansi, EntryPoint = "nvmlDeviceGetEncoderStats")]
+        internal static extern NvmlReturn NvmlDeviceGetEncoderStats(IntPtr device, out uint sessionCount, out uint averageFps, out uint averageLatency);
+        [DllImport(NVML_SHARED_LIBRARY_STRING, CharSet = CharSet.Ansi, EntryPoint = "nvmlDeviceGetEncoderUtilization")]
+        internal static extern NvmlReturn NvmlDeviceGetEncoderUtilization(IntPtr device, out uint utilization, out uint samplingPeriodUs);
+        [DllImport(NVML_SHARED_LIBRARY_STRING, CharSet = CharSet.Ansi, EntryPoint = "nvmlDeviceGetEnforcedPowerLimit")]
+        internal static extern NvmlReturn NvmlDeviceGetEnforcedPowerLimit(IntPtr device, out uint limit);
+        [DllImport(NVML_SHARED_LIBRARY_STRING, CharSet = CharSet.Ansi, EntryPoint = "nvmlDeviceGetFBCSessions")]
+        internal static extern NvmlReturn NvmlDeviceGetFBCSessions(IntPtr device, out uint sessionCount, out NvmlFBCSessionInfo sessionInfo);
+        [DllImport(NVML_SHARED_LIBRARY_STRING, CharSet = CharSet.Ansi, EntryPoint = "nvmlDeviceGetFanSpeed")]
+        internal static extern NvmlReturn NvmlDeviceGetFanSpeed(IntPtr device, out uint speed);
+        [DllImport(NVML_SHARED_LIBRARY_STRING, CharSet = CharSet.Ansi, EntryPoint = "nvmlDeviceGetFanSpeed_v2")]
+        internal static extern NvmlReturn nvmlDeviceGetFanSpeed_v2(IntPtr device, uint fan, out uint speed);
+        [DllImport(NVML_SHARED_LIBRARY_STRING, CharSet = CharSet.Ansi, EntryPoint = "nvmlDeviceGetGpuOperationMode")]
+        internal static extern NvmlReturn NvmlDeviceGetGpuOperationMode(IntPtr device, out NvmlGpuOperationMode current, out NvmlGpuOperationMode pending);
+        [DllImport(NVML_SHARED_LIBRARY_STRING, CharSet = CharSet.Ansi, EntryPoint = "nvmlDeviceGetGraphicsRunningProcesses")]
+        internal static extern NvmlReturn NvmlDeviceGetGraphicsRunningProcesses(IntPtr device, out uint infoCount, [Out, MarshalAs(UnmanagedType.LPArray)] NvmlProcessInfo[] infos);
+        [DllImport(NVML_SHARED_LIBRARY_STRING, CharSet = CharSet.Ansi, EntryPoint = "nvmlDeviceGetHandleByIndex_v2")]
+        internal static extern NvmlReturn NvmlDeviceGetHandleByIndex_v2(uint index, out IntPtr device);
+        [DllImport(NVML_SHARED_LIBRARY_STRING, CharSet = CharSet.Ansi, EntryPoint = "nvmlDeviceGetHandleByPciBusId_v2")]
+        internal static extern NvmlReturn NvmlDeviceGetHandleByPciBusId_v2(string pciBusId, out IntPtr device);
+        [DllImport(NVML_SHARED_LIBRARY_STRING, CharSet = CharSet.Ansi, EntryPoint = "nvmlDeviceGetHandleBySerial")]
+        internal static extern NvmlReturn NvmlDeviceGetHandleBySerial(string serial, IntPtr device);
+        [DllImport(NVML_SHARED_LIBRARY_STRING, CharSet = CharSet.Ansi, EntryPoint = "nvmlDeviceGetHandleByUUID")]
+        internal static extern NvmlReturn nvmlDeviceGetHandleByUUID(string uuid, out IntPtr device);
+        [DllImport(NVML_SHARED_LIBRARY_STRING, CharSet = CharSet.Ansi, EntryPoint = "nvmlDeviceGetIndex")]
+        internal static extern NvmlReturn NvmlDeviceGetIndex(IntPtr device, out uint index);
+        [DllImport(NVML_SHARED_LIBRARY_STRING, CharSet = CharSet.Ansi, EntryPoint = "nvmlDeviceGetInforomConfigurationChecksum")]
+        internal static extern NvmlReturn NvmlDeviceGetInforomConfigurationChecksum(IntPtr device, out uint checksum);
+        [DllImport(NVML_SHARED_LIBRARY_STRING, CharSet = CharSet.Ansi, EntryPoint = "nvmlDeviceGetInforomImageVersion")]
+        internal static extern NvmlReturn NvmlDeviceGetInforomImageVersion(IntPtr device, out string version, uint length);
+
+
+
+        [DllImport(NVML_SHARED_LIBRARY_STRING, CharSet = CharSet.Ansi, EntryPoint = "nvmlDeviceGetName")]
+        internal static extern NvmlReturn NvmlDeviceGetName(IntPtr device, [Out, MarshalAs(UnmanagedType.LPArray)] byte[] name, uint length);
+        [DllImport(NVML_SHARED_LIBRARY_STRING, CharSet = CharSet.Ansi, EntryPoint = "nvmlDeviceGetPciInfo_v3")]
+        internal static extern NvmlReturn NvmlDeviceGetPciInfo_v3(IntPtr device, out NvmlPciInfo pci);
+        [DllImport(NVML_SHARED_LIBRARY_STRING, CharSet = CharSet.Ansi, EntryPoint = "nvmlDeviceSetComputeMode")]
+        internal static extern NvmlReturn NvmlDeviceSetComputeMode(IntPtr device, NvmlComputeMode mode);
     }
 
     public class NvGpu
@@ -102,6 +141,63 @@ namespace Nvidia.Nvml
         public static int CudaDriverVersionMajor(int version)
         {
             return version / 1000;
+        }
+
+        public static void NvmlDeviceSetComputeMode(IntPtr device, NvmlComputeMode mode)
+        {
+            var res = Api.NvmlDeviceSetComputeMode(device, mode);
+            if (NvmlReturn.NVML_SUCCESS != res)
+            {
+                throw new SystemException(res.ToString());
+            }
+        }
+
+        public static NvmlComputeMode NvmlDeviceGetComputeMode(IntPtr device)
+        {
+            NvmlComputeMode mode;
+            var res = Api.nvmlDeviceGetComputeMode(device, out mode);
+            if (NvmlReturn.NVML_SUCCESS != res)
+            {
+                throw new SystemException(res.ToString());
+            }
+
+            return mode;
+        }
+
+        public static uint NvmlDeviceGetCountV2()
+        {
+            uint count = 0;
+            NvmlReturn res = Api.NvmlDeviceGetCount_v2(out count);
+            if (NvmlReturn.NVML_SUCCESS != res)
+            {
+                throw new SystemException(res.ToString());
+            }
+
+            return count;
+        }
+
+        public static NvmlPciInfo NvmlDeviceGetPciInfoV3(IntPtr device)
+        {
+            NvmlPciInfo data = new NvmlPciInfo();
+            NvmlReturn res = Api.NvmlDeviceGetPciInfo_v3(device, out data);
+            if (NvmlReturn.NVML_SUCCESS != res)
+            {
+                throw new SystemException(res.ToString());
+            }
+
+            return data;
+        }
+
+        public static string NvmlDeviceGetName(IntPtr device, uint length = 20)
+        {
+            byte[] buffer = new byte[length];
+            var res = Api.NvmlDeviceGetName(device, buffer, length);
+            if (NvmlReturn.NVML_SUCCESS != res)
+            {
+                throw new SystemException(res.ToString());
+            }
+
+            return Encoding.Default.GetString(buffer).Replace("\0", "");
         }
 
         public static string NvmlDeviceGetBoardPartNumber(IntPtr device, uint length)
