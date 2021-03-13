@@ -48,3 +48,5 @@ catch (Exception e)
 - [ ] Device Commands
 - [ ] Event Handling Methods
 - [ ] Error Reporting
+
+* Demo Project - There is also a [demo project](Demo/Program.cs), ported from c language, from original nvml api.
